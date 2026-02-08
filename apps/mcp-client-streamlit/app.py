@@ -63,8 +63,8 @@ Test the MCP Gateway and domain tools. Set your headers, discover tools, and cal
 
 st.sidebar.header("Configuration")
 
-# Default to localhost if not in production
-default_url = os.getenv("MCP_GATEWAY_URL", "http://localhost:8000/mcp")
+# Default to production gateway
+default_url = os.getenv("MCP_GATEWAY_URL", "https://mcp-gateway-worker.to-jamz.workers.dev/")
 
 mcp_url = st.sidebar.text_input(
     "MCP Gateway URL",

@@ -33,7 +33,7 @@ A **production-ready MCP 1.0 server system** with 4 independent Cloudflare Worke
 |----------|---------|-----------|
 | [README.md](./README.md) | Main overview & setup | First (5 min read) |
 | [QUICKSTART.md](./QUICKSTART.md) | Get running in 10 min | Want to test immediately |
-| [DELIVERABLES.md](./DELIVERABLES.md) | Complete specs & files | Need full technical details |
+
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Design & data flows | Understanding system design |
 | **PROJECT MANIFEST** | This file | Navigation & summary |
 
@@ -50,7 +50,6 @@ mcp-server-rpc-tools/                       (Root)
 │
 ├── README.md                               (Main docs)
 ├── QUICKSTART.md                           (10-min setup)
-├── DELIVERABLES.md                         (Full specs)
 ├── ARCHITECTURE.md                         (Design docs)
 ├── PROJECT MANIFEST                        (This file)
 │
@@ -190,7 +189,7 @@ mcp-server-rpc-tools/                       (Root)
 
 ### Path 3: Deep Dive Implementation (60 minutes)
 
-1. Read [DELIVERABLES.md](./DELIVERABLES.md) for complete specs
+1. Review this PROJECT_MANIFEST for complete specs
 2. Study each app's source code:
    - [domain-a-tools-worker/src/index.ts](./apps/domain-a-tools-worker/src/index.ts)
    - [domain-b-tools-worker/src/index.ts](./apps/domain-b-tools-worker/src/index.ts)
@@ -562,8 +561,9 @@ x-actor-id: optional-actor-id         # Optional
 
 1. Check relevant README in app folder
 2. Review ARCHITECTURE.md for design details
-3. Run test.sh to verify setup
-4. Check worker logs: `wrangler tail`
+3. Review PROJECT_MANIFEST.md for comprehensive specs
+4. Run test.sh to verify setup
+5. Check worker logs: `wrangler tail`
 
 ### Reporting Issues
 
@@ -610,7 +610,7 @@ MIT — See each app for details
 3. Discover and call tools
 4. Deploy to production when ready
 
-**Questions?** Refer to the relevant README or DELIVERABLES.md for comprehensive details.
+**Questions?** Refer to the relevant README or PROJECT_MANIFEST.md for comprehensive details.
 
 ---
 

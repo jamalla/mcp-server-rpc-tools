@@ -349,7 +349,7 @@ You now have:
 
 **Learn More:**
 - See [README.md](./README.md) for full documentation
-- See [DELIVERABLES.md](./DELIVERABLES.md) for comprehensive details
+- See [PROJECT_MANIFEST.md](./PROJECT_MANIFEST.md) for comprehensive details
 - Check each app's README (e.g., [mcp-gateway-worker/README.md](./apps/mcp-gateway-worker/README.md))
 
 **Deploy to Production:**
@@ -361,4 +361,4 @@ You now have:
 
 **You're done! 🎉** The MCP system is running.
 
-For questions, refer to the READMEs in each app folder or the DELIVERABLES document.
+For questions, refer to the READMEs in each app folder or PROJECT_MANIFEST.md for comprehensive details.

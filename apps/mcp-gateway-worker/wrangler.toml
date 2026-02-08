@@ -13,6 +13,13 @@ routes = [
 name = "mcp-gateway-worker"
 routes = []
 
+[env.production.vars]
+ENVIRONMENT = "production"
+DOMAIN_A_URL = "https://domain-a-tools-worker.to-jamz.workers.dev"
+DOMAIN_B_URL = "https://domain-b-tools-worker.to-jamz.workers.dev"
+DOMAIN_SHARED_SECRET = "your-shared-secret-key-here"
+ALLOWED_ORIGINS = "*"
+
 [build]
 command = "npm run build"
 cwd = "."

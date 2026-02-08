@@ -13,6 +13,10 @@ routes = [
 name = "domain-b-tools-worker"
 routes = []
 
+[env.production.vars]
+ENVIRONMENT = "production"
+DOMAIN_SHARED_SECRET = "your-shared-secret-key-here"
+
 [build]
 command = "npm run build"
 

@@ -15,7 +15,7 @@ routes = []
 
 [env.production.vars]
 ENVIRONMENT = "production"
-DOMAIN_SHARED_SECRET = "your-shared-secret-key-here"
+DOMAIN_SHARED_SECRET = "prod-secret-123"
 
 [build]
 command = "npm run build"

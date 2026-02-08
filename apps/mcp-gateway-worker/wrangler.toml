@@ -17,7 +17,7 @@ routes = []
 ENVIRONMENT = "production"
 DOMAIN_A_URL = "https://domain-a-tools-worker.to-jamz.workers.dev"
 DOMAIN_B_URL = "https://domain-b-tools-worker.to-jamz.workers.dev"
-DOMAIN_SHARED_SECRET = "your-shared-secret-key-here"
+DOMAIN_SHARED_SECRET = "prod-secret-123"
 ALLOWED_ORIGINS = "*"
 
 [build]

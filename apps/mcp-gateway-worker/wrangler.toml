@@ -1,0 +1,27 @@
+name = "mcp-gateway-worker"
+type = "service"
+main = "dist/index.js"
+compatibility_date = "2024-12-01"
+
+[env.development]
+name = "mcp-gateway-worker-dev"
+routes = [
+  { pattern = "localhost:8000/*", zone_name = "local" }
+]
+
+[env.production]
+name = "mcp-gateway-worker"
+routes = []
+
+[build]
+command = "npm run build"
+cwd = "."
+
+[vars]
+ENVIRONMENT = "development"
+DOMAIN_A_URL = "http://localhost:8001"
+DOMAIN_B_URL = "http://localhost:8002"
+ALLOWED_ORIGINS = "localhost:8000,localhost:8501,http://localhost:3000"
+
+[[triggers.crons]]
+cron = "0 0 * * *"

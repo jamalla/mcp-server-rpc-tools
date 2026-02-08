@@ -1,0 +1,26 @@
+{
+  "name": "mcp-server-rpc-monorepo",
+  "version": "0.1.0",
+  "description": "MCP Server with Domain-based RPC Tools - Complete Monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "install:all": "pnpm install",
+    "dev:gateway": "pnpm --filter mcp-gateway-worker dev",
+    "dev:domain-a": "pnpm --filter domain-a-tools-worker dev",
+    "dev:domain-b": "pnpm --filter domain-b-tools-worker dev",
+    "dev:all": "pnpm -r --parallel dev",
+    "deploy:gateway": "pnpm --filter mcp-gateway-worker deploy",
+    "deploy:domain-a": "pnpm --filter domain-a-tools-worker deploy",
+    "deploy:domain-b": "pnpm --filter domain-b-tools-worker deploy",
+    "deploy:all": "pnpm --filter domain-a-tools-worker deploy && pnpm --filter domain-b-tools-worker deploy && pnpm --filter mcp-gateway-worker deploy",
+    "build": "pnpm -r build"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
+  "devDependencies": {
+    "wrangler": "^4.63.0"
+  }
+}

@@ -1,0 +1,24 @@
+name = "domain-b-tools-worker"
+type = "service"
+main = "dist/index.js"
+compatibility_date = "2024-12-01"
+
+[env.development]
+name = "domain-b-tools-worker-dev"
+routes = [
+  { pattern = "localhost:8002/*", zone_name = "local" }
+]
+
+[env.production]
+name = "domain-b-tools-worker"
+routes = []
+
+[build]
+command = "npm run build"
+
+[[env.development.services]]
+binding = "ENVIRONMENT"
+service = "domain-b-tools-worker-dev"
+
+[vars]
+ENVIRONMENT = "development"

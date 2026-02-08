@@ -1,6 +1,8 @@
 streamlit==1.28.0
 requests==2.31.0
 python-dotenv==1.0.0
-langchain==0.1.0
-langchain-groq==0.1.0
-langchain-core==0.2.0
+# Use LangChain packages that are mutually compatible in Streamlit Cloud
+# langchain 1.2.9 / langchain-core 1.2.9 pair worked during local validation
+langchain==1.2.9
+langchain-core==1.2.9
+langchain-groq==1.1.2

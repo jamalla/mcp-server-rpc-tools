@@ -33,7 +33,6 @@ A **production-ready MCP 1.0 server system** with 4 independent Cloudflare Worke
 |----------|---------|-----------|
 | [README.md](./README.md) | Main overview & setup | First (5 min read) |
 | [QUICKSTART.md](./QUICKSTART.md) | Get running in 10 min | Want to test immediately |
-
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Design & data flows | Understanding system design |
 | **PROJECT MANIFEST** | This file | Navigation & summary |
 

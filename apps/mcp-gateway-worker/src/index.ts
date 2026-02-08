@@ -114,6 +114,24 @@ const callRemoteToolEndpoint = async (
 // ============================================================================
 
 /**
+ * GET /mcp - Show MCP endpoint info
+ */
+app.get("/mcp", (c) => {
+  return c.json({
+    endpoint: "/mcp",
+    method: "POST",
+    protocol: "JSON-RPC 2.0",
+    methods: ["tools/list", "tools/call"],
+    example: {
+      method: "tools/list",
+      jsonrpc: "2.0",
+      id: 1,
+    },
+    documentation: "Send POST request with JSON-RPC 2.0 format",
+  });
+});
+
+/**
  * MCP tools/list endpoint
  * Returns available tools with full metadata
  */

@@ -151,7 +151,8 @@ with tab1:
                         cols = st.columns(2)
                         for idx, tool in enumerate(tools):
                             with cols[idx % 2]:
-                                with st.container(border=True):
+                                # `border` argument removed for compatibility across Streamlit versions
+                                with st.container():
                                     st.markdown(f"### {tool['name']}")
                                     st.markdown(tool["description"])
                                     st.markdown(

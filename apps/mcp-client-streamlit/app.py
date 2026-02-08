@@ -87,6 +87,22 @@ actor_id = st.sidebar.text_input(
     placeholder="Optional actor ID",
 )
 
+# Links: GitHub repo and short project summary (reads README.md)
+repo_url = "https://github.com/jamalla/mcp-server-rpc-tools"
+st.sidebar.markdown(f"**Project:** [mcp-server-rpc-tools]({repo_url})")
+
+with st.sidebar.expander("Project Summary", expanded=False):
+    try:
+        readme_path = os.path.join(os.path.dirname(__file__), "..", "..", "README.md")
+        with open(readme_path, "r", encoding="utf-8") as f:
+            readme = f.read()
+        # Show the intro section (up to first H2 '##')
+        intro = readme.split('\n## ')[0]
+        st.markdown(intro)
+        st.markdown(f"[Read full README]({repo_url})")
+    except Exception:
+        st.markdown("Project README not available.")
+
 scopes_input = st.sidebar.text_area(
     "x-scopes",
     value="read:greetings,customers:read,math:execute,text:transform",

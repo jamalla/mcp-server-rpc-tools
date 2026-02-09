@@ -2,6 +2,11 @@
 
 A complete end-to-end demo system showcasing **Cloudflare Workers + Hono + MCP (Model Context Protocol)** as a monorepo using PNPM workspaces.
 
+## Live Demo
+
+Try the live Streamlit client here:
+https://mcp-server-rpc-tools-gzlapy2fedh6ff2wohnnhl.streamlit.app/
+
 ## Architecture
 
 - **mcp-gateway-worker**: MCP server entrypoint that routes tool calls to domain workers via secure RPC

@@ -13,6 +13,14 @@ routes = [
 name = "mcp-gateway-worker"
 routes = []
 
+[[env.production.services]]
+binding = "DOMAIN_A_SERVICE"
+service = "domain-a-tools-worker"
+
+[[env.production.services]]
+binding = "DOMAIN_B_SERVICE"
+service = "domain-b-tools-worker"
+
 [env.production.vars]
 ENVIRONMENT = "production"
 DOMAIN_A_URL = "https://domain-a-tools-worker.to-jamz.workers.dev"
@@ -30,5 +38,11 @@ DOMAIN_A_URL = "http://localhost:8001"
 DOMAIN_B_URL = "http://localhost:8002"
 ALLOWED_ORIGINS = "localhost:8000,localhost:8501,http://localhost:3000"
 
-[[triggers.crons]]
-cron = "0 0 * * *"
+[[env.development.services]]
+binding = "DOMAIN_A_SERVICE"
+service = "domain-a-tools-worker-dev"
+
+[[env.development.services]]
+binding = "DOMAIN_B_SERVICE"
+service = "domain-b-tools-worker-dev"
+

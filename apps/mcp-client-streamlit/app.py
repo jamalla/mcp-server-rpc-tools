@@ -388,10 +388,15 @@ The agent can access all available tools and decide which ones to use.
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
 
-        # User input
-        user_input = st.chat_input("Ask the AI agent to do something with the tools...")
+        # User input (chat_input is not allowed inside tabs in some Streamlit versions)
+        with st.form("agent_chat_form", clear_on_submit=True):
+            user_input = st.text_input(
+                "Ask the AI agent to do something with the tools...",
+                key="agent_user_input",
+            )
+            send_clicked = st.form_submit_button("Send")
 
-        if user_input:
+        if send_clicked and user_input:
             # Add user message to history
             st.session_state.agent_messages.append({"role": "user", "content": user_input})
 

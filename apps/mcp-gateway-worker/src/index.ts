@@ -59,13 +59,17 @@ const extractContext = (c: any): RPCContext => {
  * Call a remote RPC tool endpoint
  */
 const callRemoteToolEndpoint = async (
-  domainUrl: string,
+  domainUrl: string | null,
+  domainFetcher: { fetch: typeof fetch } | null,
   toolName: string,
   input: any,
   context: RPCContext,
   secret: string
 ): Promise<RPCResponse> => {
-  const endpoint = `${domainUrl}/tools/${toolName}/invoke`;
+  const endpointPath = `/tools/${toolName}/invoke`;
+  const endpoint = domainFetcher
+    ? `https://service${endpointPath}`
+    : `${domainUrl}${endpointPath}`;
 
   const rpcRequest: RPCRequest = {
     input,
@@ -73,14 +77,23 @@ const callRemoteToolEndpoint = async (
   };
 
   try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-gateway-token": secret,
-      },
-      body: JSON.stringify(rpcRequest),
-    });
+    const response = await (domainFetcher
+      ? domainFetcher.fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-gateway-token": secret,
+          },
+          body: JSON.stringify(rpcRequest),
+        })
+      : fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-gateway-token": secret,
+          },
+          body: JSON.stringify(rpcRequest),
+        }));
 
     if (!response.ok) {
       const error = await response.text();
@@ -107,6 +120,15 @@ const callRemoteToolEndpoint = async (
       },
     };
   }
+};
+
+/**
+ * Get service binding fetcher for a domain, if configured
+ */
+const getDomainFetcher = (domain: "A" | "B", env: any) => {
+  if (domain === "A") return env.DOMAIN_A_SERVICE || null;
+  if (domain === "B") return env.DOMAIN_B_SERVICE || null;
+  return null;
 };
 
 // ============================================================================
@@ -207,17 +229,18 @@ app.post("/mcp", async (c) => {
       );
     }
 
-    // Get domain URL
+    // Get domain target (service binding preferred)
     const env = c.env as any;
+    const domainFetcher = getDomainFetcher(tool.domain, env);
     const domainUrl = getDomainUrl(tool.domain, env);
-    if (!domainUrl) {
+    if (!domainFetcher && !domainUrl) {
       return c.json(
         {
           jsonrpc,
           id,
           error: {
             code: -32603,
-            message: `Domain ${tool.domain} URL not configured`,
+            message: `Domain ${tool.domain} target not configured`,
             data: { code: "UPSTREAM_ERROR" },
           },
         },
@@ -244,6 +267,7 @@ app.post("/mcp", async (c) => {
 
     const rpcResponse = await callRemoteToolEndpoint(
       domainUrl,
+      domainFetcher,
       toolName,
       toolInput,
       context,
@@ -374,15 +398,16 @@ app.post("/tools/:name/call", async (c) => {
     );
   }
 
-  // Get domain URL
+  // Get domain target (service binding preferred)
+  const domainFetcher = getDomainFetcher(tool.domain, env);
   const domainUrl = getDomainUrl(tool.domain, env);
-  if (!domainUrl) {
+  if (!domainFetcher && !domainUrl) {
     return c.json(
       {
         ok: false,
         error: {
           code: "UPSTREAM_ERROR",
-          message: `Domain ${tool.domain} URL not configured`,
+          message: `Domain ${tool.domain} target not configured`,
         },
       },
       500
@@ -406,6 +431,7 @@ app.post("/tools/:name/call", async (c) => {
 
   const rpcResponse = await callRemoteToolEndpoint(
     domainUrl,
+    domainFetcher,
     toolName,
     toolInput,
     context,
@@ -445,6 +471,8 @@ app.get("/health", (c) => {
 app.get("/", (c) => {
   const domainAUrl = (c.env as any).DOMAIN_A_URL;
   const domainBUrl = (c.env as any).DOMAIN_B_URL;
+  const hasDomainAService = Boolean((c.env as any).DOMAIN_A_SERVICE);
+  const hasDomainBService = Boolean((c.env as any).DOMAIN_B_SERVICE);
 
   return c.json({
     service: "MCP Gateway Worker",
@@ -456,6 +484,10 @@ app.get("/", (c) => {
     domains: {
       A: domainAUrl,
       B: domainBUrl,
+    },
+    serviceBindings: {
+      A: hasDomainAService,
+      B: hasDomainBService,
     },
     toolCount: getAllTools().length,
   });

@@ -36,6 +36,7 @@ cwd = "."
 ENVIRONMENT = "development"
 DOMAIN_A_URL = "http://localhost:8001"
 DOMAIN_B_URL = "http://localhost:8002"
+DOMAIN_SHARED_SECRET = "dev-secret-123"
 ALLOWED_ORIGINS = "localhost:8000,localhost:8501,http://localhost:3000"
 
 [[env.development.services]]

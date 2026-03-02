@@ -26,3 +26,4 @@ service = "domain-a-tools-worker-dev"
 
 [vars]
 ENVIRONMENT = "development"
+DOMAIN_SHARED_SECRET = "dev-secret-123"

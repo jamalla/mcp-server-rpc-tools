@@ -1,5 +1,7 @@
 import os
 import json
+import re
+import html
 import streamlit as st
 import requests
 from typing import Optional, Dict, Any
@@ -39,6 +41,38 @@ def get_gateway_base_url(mcp_url: str) -> str:
     if url.endswith("/mcp"):
         return url[:-4]  # Remove /mcp suffix
     return url
+
+
+def split_thinking_and_reply(text: str) -> Dict[str, str]:
+    """Split model output into hidden-think content and visible reply."""
+    if not text:
+        return {"thinking": "", "reply": ""}
+
+    thinking_blocks = re.findall(r"<think>(.*?)</think>", text, flags=re.DOTALL | re.IGNORECASE)
+    thinking = "\n\n".join(block.strip() for block in thinking_blocks if block.strip())
+
+    reply = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
+    reply = reply.replace("<think>", "").replace("</think>", "").strip()
+
+    if not reply and not thinking:
+        reply = text.strip()
+
+    return {"thinking": thinking, "reply": reply}
+
+
+def render_agent_message(content: str) -> None:
+    """Render agent output with styled thinking + reply sections."""
+    parsed = split_thinking_and_reply(content)
+
+    if parsed["thinking"]:
+        st.caption(parsed["thinking"])
+
+    if parsed["reply"]:
+        escaped_reply = html.escape(parsed["reply"]).replace("\n", "<br>")
+        st.markdown(
+            f"<div style='font-size: 1.15rem; line-height: 1.65;'>{escaped_reply}</div>",
+            unsafe_allow_html=True,
+        )
 
 
 # ============================================================================
@@ -386,7 +420,10 @@ The agent can access all available tools and decide which ones to use.
         st.markdown("### Conversation")
         for message in st.session_state.agent_messages:
             with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+                if message["role"] == "assistant":
+                    render_agent_message(message["content"])
+                else:
+                    st.markdown(message["content"])
 
         # User input (chat_input is not allowed inside tabs in some Streamlit versions)
         with st.form("agent_chat_form", clear_on_submit=True):
@@ -520,7 +557,7 @@ After receiving tool results, provide a natural language answer to the user."""
                         )
 
                         with st.chat_message("assistant"):
-                            st.markdown(final_response)
+                            render_agent_message(final_response)
 
                     except Exception as e:
                         error_msg = f"Agent Error: {str(e)}"

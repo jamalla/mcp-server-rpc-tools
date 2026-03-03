@@ -9,14 +9,11 @@ from typing import Optional, Dict, Any
 # Try to import LangChain packages
 LANGCHAIN_AVAILABLE = False
 LANGCHAIN_ERROR = None
-# Try to import LangChain packages
-LANGCHAIN_AVAILABLE = False
-LANGCHAIN_ERROR = None
 try:
     from langchain_groq import ChatGroq
     from langchain_core.messages import HumanMessage
     LANGCHAIN_AVAILABLE = True
-except ImportError as e:
+except Exception as e:
     LANGCHAIN_ERROR = str(e)
 
 # ============================================================================

@@ -29,6 +29,12 @@ cd apps/mcp-client-streamlit
 pip install -r requirements.txt
 ```
 
+Optional (enable AI Agent tab):
+
+```bash
+pip install langchain==1.2.9 langchain-core==1.2.9 langchain-groq==1.1.2
+```
+
 Or with a virtual environment:
 
 ```bash
@@ -38,6 +44,9 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install
 pip install -r requirements.txt
+
+# Optional AI Agent support
+pip install langchain==1.2.9 langchain-core==1.2.9 langchain-groq==1.1.2
 ```
 
 ### 2. Run the App

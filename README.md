@@ -7,12 +7,16 @@ A complete end-to-end demo system showcasing **Cloudflare Workers + Hono + MCP (
 Try the live Streamlit client here:
 https://mcp-server-rpc-tools-gzlapy2fedh6ff2wohnnhl.streamlit.app/
 
+Try the live CopilotKit client here:
+https://mcp-server-rpc-tools-mcp-client-cop.vercel.app/
+
 ## Architecture
 
 - **mcp-gateway-worker**: MCP server entrypoint that routes tool calls to domain workers via secure RPC
 - **domain-a-tools-worker**: RPC endpoint exposing Domain A tools (hello, list-top-customers)
 - **domain-b-tools-worker**: RPC endpoint exposing Domain B tools (sum, normalize-text)
 - **mcp-client-streamlit**: Python UI for testing the MCP gateway
+- **mcp-client-copilotkit**: Next.js CopilotKit UI for testing MCP tools via chat
 
 ## Quick Start
 

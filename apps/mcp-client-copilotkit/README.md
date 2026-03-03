@@ -5,6 +5,10 @@ CopilotKit-based frontend app wired to the live MCP gateway:
 - Gateway endpoint: `https://mcp-gateway-worker.to-jamz.workers.dev/mcp`
 - Runtime endpoint: `/api/copilotkit`
 
+## Live Deployment
+
+https://mcp-server-rpc-tools-mcp-client-cop.vercel.app/
+
 ## What this app does
 
 - Renders a CopilotKit chat UI in Next.js
